@@ -1,6 +1,6 @@
 # Bot Informasi Gempa
 
-Bot ini menyediakan informasi terkini mengenai kejadian gempa bumi di seluruh wilayah Indonesia. Menggunakan data dari BMKG (Badan Meteorologi, Klimatologi, dan Geofisika), bot ini mengirimkan informasi gempa secara real-time melalui Telegram.
+Bot ini menyediakan informasi terkini mengenai kejadian gempa bumi di seluruh wilayah Indonesia. Menggunakan data dari **[BMKG](https://data.bmkg.go.id/gempabumi/) (Badan Meteorologi, Klimatologi, dan Geofisika)**, bot ini mengirimkan informasi gempa secara real-time melalui Telegram.
 
 ## Fitur
 
