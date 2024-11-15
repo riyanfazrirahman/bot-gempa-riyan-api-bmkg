@@ -105,6 +105,23 @@ Potensi: ${Potensi}.
   }
 });
 
+// Menyajikan favicon secara otomatis
+app.use(
+  "/favicon.ico",
+  express.static(
+    path.join(
+      __dirname,
+      "public",
+      "favicon.pnhttps://avatars.githubusercontent.com/u/112231170"
+    )
+  )
+);
+
+// Routes lainnya
+app.get("/", (req, res) => {
+  res.send("Hello, world!");
+});
+
 // Menjalankan server Express
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
