@@ -91,23 +91,17 @@ Potensi: ${Potensi}.
   }
 });
 
-// Menyajikan favicon secara otomatis
-app.use(
-  "/favicon.ico",
-  express.static(
-    path.join(
-      __dirname,
-      "public",
-      "https://avatars.githubusercontent.com/u/112231170"
-    )
-  )
-);
+// Default Icon favicon
+app.use(express.static(path.join(__dirname, "public")));
 
-// Menyusun route untuk halaman utama
+// Halaman utama
 app.get("/", (req, res) => {
   res.send(`
       <html>
-        <head><title>Bot Gempa</title></head>
+        <head>
+          <title>Bot Gempa</title>
+          <link rel="icon" href="https://avatars.githubusercontent.com/u/112231170" type="image/x-icon">
+        </head>
         <body>
           <h1>Selamat datang di Bot Informasi Gempa</h1>
           <p>Gunakan <b>/gempa</b> untuk mendapatkan informasi gempa terkini.</p>
