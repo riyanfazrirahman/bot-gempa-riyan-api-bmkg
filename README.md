@@ -51,7 +51,7 @@ Bot ini menyediakan informasi terkini mengenai kejadian gempa bumi di seluruh wi
    Setelah mengatur token bot, jalankan bot menggunakan perintah berikut:
 
    ```bash
-   npm dev
+   npm run dev
    ```
 
    Bot akan mulai berjalan dan menunggu interaksi pengguna di Telegram.
