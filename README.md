@@ -68,7 +68,6 @@ Setelah menjalankan perintah `/gempa`, bot akan mengirimkan pesan yang berisi in
 ![Gempa Shakemap](https://data.bmkg.go.id/DataMKG/TEWS/20241115213951.mmi.jpg)
 
 ```yaml
-
 15 Nov 2024 | 21:39:51 WIB
 Besaran Gempa: 3.6 SR | Kedalaman: 1 km
 Lokasi: Pusat gempa berada di darat 6 km barat daya Samosir.
