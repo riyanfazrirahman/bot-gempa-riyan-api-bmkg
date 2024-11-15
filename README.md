@@ -7,9 +7,10 @@ Bot ini menyediakan informasi terkini mengenai kejadian gempa bumi di seluruh wi
 - Mendapatkan informasi tentang gempa terkini.
 - Data yang digunakan berasal dari API BMKG.
 - Tiga jenis data yang disediakan:
-  1. Gempabumi M 5.0+ (Gempa dengan magnitudo 5.0 ke atas)
-  2. Gempabumi Dirasakan (Gempa yang dirasakan oleh masyarakat)
-  3. Gempabumi Berpotensi Tsunami (Gempa yang berpotensi menimbulkan tsunami)
+
+1. Gempabumi M 5.0+ (Gempa dengan magnitudo 5.0 ke atas)
+2. Gempabumi Dirasakan (Gempa yang dirasakan oleh masyarakat)
+3. Gempabumi Berpotensi Tsunami (Gempa yang berpotensi menimbulkan tsunami)
 
 ## Teknologi yang Digunakan
 
