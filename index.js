@@ -1,3 +1,4 @@
+import express from "express";
 import TelegramBot from "node-telegram-bot-api";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
@@ -9,7 +10,12 @@ const option = {
   polling: true,
 };
 
+// Inisialisasi bot Telegram
 const MyBot = new TelegramBot(token, option);
+
+// Membuat aplikasi Express
+const app = express();
+const port = process.env.PORT || 3000;
 
 const prefix = "/";
 const startBot = new RegExp(`^${prefix}start$`);
@@ -34,6 +40,21 @@ Data yang saya gunakan berasal dari Gempabumi Terbaru yang tersedia di file <cod
   MyBot.sendMessage(callback.from.id, startMassages, { parse_mode: "HTML" });
 });
 
+// Menyusun route untuk halaman utama
+app.get("/", (req, res) => {
+  res.send(`
+    <html>
+      <head><title>Bot Gempa</title></head>
+      <body>
+        <h1>Selamat datang di Bot Informasi Gempa</h1>
+        <p>Gunakan <b>/gempa</b> untuk mendapatkan informasi gempa terkini.</p>
+        <p>Sumber data: <a href="https://data.bmkg.go.id/gempabumi/" target="_blank">BMKG</a></p>
+      </body>
+    </html>
+  `);
+});
+
+// Menangani permintaan /gempa untuk mendapatkan informasi gempa
 MyBot.onText(gempa, async (callback) => {
   const BMKG_ENDPOINT = "https://data.bmkg.go.id/DataMKG/TEWS/";
 
@@ -83,5 +104,8 @@ Potensi: ${Potensi}.
     );
   }
 });
-// Menjalankan server
-console.log("Bot is running...");
+
+// Menjalankan server Express
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
