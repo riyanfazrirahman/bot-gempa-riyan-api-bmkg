@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bot Gempa</title>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+            }
+            h1 {
+                color: #333;
+            }
+            .container {
+                max-width: 800px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .highlight {
+                font-weight: bold;
+                color: #2c3e50;
+            }
+            code {
+                background-color: #f8f8f8;
+                padding: 2px 4px;
+                border-radius: 4px;
+                font-family: monospace;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Halo! Saya adalah bot informasi gempa.</h1>
+            <p>Gunakan <span class="highlight">/gempa</span> untuk mendapatkan
+                info gempa terkini.</p>
+
+            <p>Bot ini menyediakan data kejadian gempa bumi yang terjadi di
+                seluruh
+                wilayah Indonesia, yang terdiri dari tiga jenis data kejadian
+                gempa:</p>
+
+            <ul>
+                <li><b>Gempabumi M 5.0+</b> – Gempabumi dengan magnitudo 5.0 ke
+                    atas.</li>
+                <li><b>Gempabumi Dirasakan</b> – Gempabumi yang dirasakan oleh
+                    masyarakat.</li>
+                <li><b>Gempabumi Berpotensi Tsunami</b> – Gempabumi yang
+                    berpotensi menimbulkan tsunami.</li>
+            </ul>
+
+            <p>Data yang saya gunakan berasal dari Gempabumi Terbaru yang
+                tersedia di
+                file <code>autogempa.json</code> milik BMKG (Badan Meteorologi,
+                Klimatologi,
+                dan Geofisika).</p>
+        </div>
+    </body>
+</html>

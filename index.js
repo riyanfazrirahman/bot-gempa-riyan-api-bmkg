@@ -2,7 +2,9 @@ import express from "express";
 import TelegramBot from "node-telegram-bot-api";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
-import { createCanvas, loadImage } from "canvas";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import path from "path";
 
 dotenv.config();
 
@@ -93,61 +95,17 @@ Potensi: ${Potensi}.
   }
 });
 
-// Function to fetch and create favicon from GitHub avatar
-async function createFaviconFromGitHub(username) {
-  try {
-    // Fetch user data from GitHub
-    const response = await fetch(`https://api.github.com/users/${username}`);
-    const data = await response.json(); // Get user data as JSON
+// Menggunakan `import.meta.url` untuk mendapatkan __dirname dalam ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-    // Get the avatar URL from GitHub user data
-    const avatarUrl = data.avatar_url;
-
-    // Load the image (GitHub avatar)
-    const image = await loadImage(avatarUrl); // Load image from the URL
-
-    // Create a canvas to draw the image and convert to favicon size
-    const canvas = createCanvas(64, 64); // Standard favicon size
-    const ctx = canvas.getContext("2d");
-
-    // Draw the image onto the canvas
-    ctx.drawImage(image, 0, 0, 64, 64);
-
-    // Return the canvas as a buffer in .ico format
-    return canvas.toBuffer("image/x-icon");
-  } catch (error) {
-    console.error("Error creating favicon:", error);
-    throw new Error("Could not create favicon");
-  }
-}
-
-// Serve the dynamic favicon
-app.get("/favicon.ico", async (req, res) => {
-  try {
-    const username = "riyanfazrirahman"; // Replace with your GitHub username
-    const faviconBuffer = await createFaviconFromGitHub(username);
-    res.setHeader("Content-Type", "image/x-icon");
-    res.send(faviconBuffer);
-  } catch (error) {
-    res.status(500).send("Error generating favicon");
-  }
-});
+// Serve static files (index.html, favicon.ico, etc.) from the "public" folder
+app.use(express.static(path.join(__dirname, "public")));
 
 // Halaman utama
 app.get("/", (req, res) => {
-  res.send(`
-        <html>
-          <head>
-            <title>Bot Gempa</title>
-             <link rel="icon" href="/favicon.ico" type="image/x-icon">
-          </head>
-          <body>
-            <h1>Selamat datang di Bot Informasi Gempa</h1>
-            <p>Gunakan <b>/gempa</b> untuk mendapatkan informasi gempa terkini.</p>
-            <p>Sumber data: <a href="https://data.bmkg.go.id/gempabumi/" target="_blank">BMKG</a></p>
-          </body>
-        </html>
-      `);
+  // Express akan secara otomatis menyajikan file index.html dari folder "public"
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Menjalankan server Express
