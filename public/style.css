@@ -1,0 +1,76 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+h1 {
+  color: #333;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.highlight {
+  font-weight: bold;
+  color: #007bff;
+}
+
+ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+.btn-telegram {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #2fabea;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.btn-telegram:hover {
+  background-color: #1d8fc8;
+}
+
+.gempa-info {
+  display: none;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.gempa-info ul {
+  margin-left: 20px;
+}

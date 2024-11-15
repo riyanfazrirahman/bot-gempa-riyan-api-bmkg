@@ -2,64 +2,14 @@
 
 Bot ini menyediakan informasi terkini mengenai kejadian gempa bumi di seluruh wilayah Indonesia. Menggunakan data dari **[BMKG](https://data.bmkg.go.id/gempabumi/) (Badan Meteorologi, Klimatologi, dan Geofisika)**, bot ini mengirimkan informasi gempa secara real-time melalui Telegram.
 
-## Fitur
-
-- Mendapatkan informasi tentang gempa terkini.
-- Data yang digunakan berasal dari API BMKG.
-- Tiga jenis data yang disediakan:
-
-1. Gempabumi M 5.0+ (Gempa dengan magnitudo 5.0 ke atas)
-2. Gempabumi Dirasakan (Gempa yang dirasakan oleh masyarakat)
-3. Gempabumi Berpotensi Tsunami (Gempa yang berpotensi menimbulkan tsunami)
-
-## Teknologi yang Digunakan
-
-- **Node.js**: Untuk menjalankan bot.
-- **node-fetch**: Untuk mengambil data dari API BMKG.
-- **node-telegram-bot-api**: Untuk mengintegrasikan bot dengan Telegram.
-- **dotenv**: Untuk mengelola konfigurasi yang bersifat rahasia seperti token Telegram.
-
 ## Cara Menjalankan Bot
 
-1. **Clone Repository**
-
-   Clone repository ini ke komputer Anda:
-
-   ```bash
-   git clone https://github.com/riyanfazrirahman/bot-gempa-riyan-api-bmkg.git
-   ```
-
-2. **Instalasi Dependensi**
-
-   Pastikan Anda sudah menginstal Node.js dan npm. Kemudian jalankan perintah berikut untuk menginstal dependensi yang diperlukan:
-
-   ```bash
-   npm install
-   ```
-
-3. **Menyiapkan Token Telegram**
-
-   Buat bot Telegram menggunakan [BotFather](https://t.me/botfather).
-   Salin token API yang diberikan dan simpan dalam file `.env` di root proyek Anda dengan format berikut:
-
-   ```makefile
-   TELEGRAM_BOT_TOKEN=<your-telegram-bot-token>
-   ```
-
-4. **Menjalankan Bot**
-
-   Setelah mengatur token bot, jalankan bot menggunakan perintah berikut:
-
-   ```bash
-   npm run dev
-   ```
-
-   Bot akan mulai berjalan dan menunggu interaksi pengguna di Telegram.
-
-## Perintah yang Tersedia
+Perintah yang Tersedia di Telegram **[Bot Gempa - Riyan](https://t.me/tesryn_bot)**
 
 - `/start`: Menyambut pengguna dan memberikan informasi dasar tentang bot.
 - `/gempa`: Memberikan informasi terkini tentang gempa bumi yang terjadi.
+
+Atau kunjungi Website berikut: **[WEB bot-gempa-riyan](https://bot-gempa-riyan-api-bmkg.vercel.app/)**
 
 ## Contoh Pesan
 

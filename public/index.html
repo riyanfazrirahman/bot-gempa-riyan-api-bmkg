@@ -4,37 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Bot Gempa</title>
-        <link rel="icon" href="/favicon.png" type="image/png">
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                line-height: 1.6;
-                margin: 0;
-                padding: 0;
-                background-color: #f4f4f4;
-            }
-            h1 {
-                color: #333;
-            }
-            .container {
-                max-width: 800px;
-                margin: 20px auto;
-                padding: 20px;
-                background-color: white;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
-            .highlight {
-                font-weight: bold;
-                color: #2c3e50;
-            }
-            code {
-                background-color: #f8f8f8;
-                padding: 2px 4px;
-                border-radius: 4px;
-                font-family: monospace;
-            }
-        </style>
+        <link rel="icon" href="favicon.png" type="image/png">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <div class="container">
@@ -43,9 +14,8 @@
                 info gempa terkini.</p>
 
             <p>Bot ini menyediakan data kejadian gempa bumi yang terjadi di
-                seluruh
-                wilayah Indonesia, yang terdiri dari tiga jenis data kejadian
-                gempa:</p>
+                seluruh wilayah Indonesia, yang terdiri dari tiga jenis data
+                kejadian gempa:</p>
 
             <ul>
                 <li><b>Gempabumi M 5.0+</b> – Gempabumi dengan magnitudo 5.0 ke
@@ -57,10 +27,52 @@
             </ul>
 
             <p>Data yang saya gunakan berasal dari Gempabumi Terbaru yang
-                tersedia di
-                file <code>autogempa.json</code> milik BMKG (Badan Meteorologi,
-                Klimatologi,
-                dan Geofisika).</p>
+                tersedia di file <code>autogempa.json</code> milik BMKG (Badan
+                Meteorologi, Klimatologi, dan Geofisika).</p>
+
+            <!-- Tombol untuk menampilkan informasi gempa -->
+            <button id="showGempaBtn">Tampilkan Informasi Gempa</button>
+            <a href="https://t.me/tesryn_bot" class="btn-telegram"
+                target="_blank">
+                Telegram Bot
+            </a>
+
         </div>
+
+        <!-- Container untuk menampilkan data gempa -->
+        <div class="container gempa-info" id="gempaInfo" style="display: none;">
+            <h2>Informasi Gempa Terbaru:</h2>
+            <p id="gempaDetails"></p>
+        </div>
+
+        <script>
+            document.getElementById('showGempaBtn').addEventListener('click', async () => {
+                // Ambil data dari API /api-gempa-bmkg
+                try {
+                    const response = await fetch('/api-gempa-bmkg');
+                    const data = await response.json();
+    
+                    // Ambil data gempa pertama (atau sesuaikan dengan kebutuhan)
+                    const gempa = data.Infogempa.gempa;
+    
+                    // Update konten di halaman dengan data gempa
+                    document.getElementById('gempaDetails').innerHTML = `
+                     <p><strong>Tanggal:</strong> ${gempa.Tanggal} | <strong>Jam:</strong> ${gempa.Jam}</p>
+                     <ul>
+                        <li><strong>Magnitudo:</strong> ${gempa.Magnitude} SR</li>
+                        <li><strong>Kedalaman:</strong> ${gempa.Kedalaman} km</li>
+                        <li><strong>Wilayah:</strong> ${gempa.Wilayah}</li>
+                        <li><strong>Potensi:</strong> ${gempa.Potensi}</li>
+                     </ul>
+                     <p><strong>Sumber data:</strong> BMKG (Badan Meteorologi, Klimatologi, dan Geofisika)</p>
+                    `;
+    
+                    // Tampilkan kontainer informasi gempa
+                    document.getElementById('gempaInfo').style.display = 'block';
+                } catch (error) {
+                    alert("Terjadi kesalahan saat mengambil data gempa.");
+                }
+            });
+        </script>
     </body>
 </html>
