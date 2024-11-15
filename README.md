@@ -25,7 +25,7 @@ Bot ini menyediakan informasi terkini mengenai kejadian gempa bumi di seluruh wi
    Clone repository ini ke komputer Anda:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/riyanfazrirahman/bot-gempa-riyan-api-bmkg.git
    ```
 
 2. **Instalasi Dependensi**
@@ -63,6 +63,7 @@ Bot ini menyediakan informasi terkini mengenai kejadian gempa bumi di seluruh wi
 ## Contoh Pesan
 
 Setelah menjalankan perintah `/gempa`, bot akan mengirimkan pesan yang berisi informasi gempa, seperti:
+
 ![Gempa Shakemap](https://data.bmkg.go.id/DataMKG/TEWS/20241115213951.mmi.jpg)
 
 ```yaml
