@@ -40,20 +40,6 @@ Data yang saya gunakan berasal dari Gempabumi Terbaru yang tersedia di file <cod
   MyBot.sendMessage(callback.from.id, startMassages, { parse_mode: "HTML" });
 });
 
-// Menyusun route untuk halaman utama
-app.get("/", (req, res) => {
-  res.send(`
-    <html>
-      <head><title>Bot Gempa</title></head>
-      <body>
-        <h1>Selamat datang di Bot Informasi Gempa</h1>
-        <p>Gunakan <b>/gempa</b> untuk mendapatkan informasi gempa terkini.</p>
-        <p>Sumber data: <a href="https://data.bmkg.go.id/gempabumi/" target="_blank">BMKG</a></p>
-      </body>
-    </html>
-  `);
-});
-
 // Menangani permintaan /gempa untuk mendapatkan informasi gempa
 MyBot.onText(gempa, async (callback) => {
   const BMKG_ENDPOINT = "https://data.bmkg.go.id/DataMKG/TEWS/";
@@ -112,14 +98,23 @@ app.use(
     path.join(
       __dirname,
       "public",
-      "favicon.pnhttps://avatars.githubusercontent.com/u/112231170"
+      "https://avatars.githubusercontent.com/u/112231170"
     )
   )
 );
 
-// Routes lainnya
+// Menyusun route untuk halaman utama
 app.get("/", (req, res) => {
-  res.send("Hello, world!");
+  res.send(`
+      <html>
+        <head><title>Bot Gempa</title></head>
+        <body>
+          <h1>Selamat datang di Bot Informasi Gempa</h1>
+          <p>Gunakan <b>/gempa</b> untuk mendapatkan informasi gempa terkini.</p>
+          <p>Sumber data: <a href="https://data.bmkg.go.id/gempabumi/" target="_blank">BMKG</a></p>
+        </body>
+      </html>
+    `);
 });
 
 // Menjalankan server Express
