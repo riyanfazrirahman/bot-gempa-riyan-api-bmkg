@@ -39,7 +39,7 @@ Bot ini menyediakan informasi terkini mengenai kejadian gempa bumi di seluruh wi
 
 3. **Menyiapkan Token Telegram**
 
-   Buat bot Telegram menggunakan [BotFather]([https://web.telegram.org/a/#93372553).
+   Buat bot Telegram menggunakan [BotFather]([https://t.me/botfather).
    Salin token API yang diberikan dan simpan dalam file `.env` di root proyek Anda dengan format berikut:
 
    ```makefile
