@@ -81,4 +81,6 @@ Potensi: ${Potensi}.
   }
 });
 
+getGempaBMKG();
+
 export { MyBot };
