@@ -127,6 +127,16 @@ app.get("/api-gempa-bmkg", async (req, res) => {
   }
 });
 
+let requestCount = 0; // Variabel untuk mencatat jumlah request (contoh)
+
+app.get("/auto-reload", (req, res) => {
+  requestCount++; // Simulasi data dinamis
+  res.json({
+    message: `Ini adalah request ke-${requestCount}`,
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // Menjalankan server Express
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
