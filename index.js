@@ -11,7 +11,7 @@ const token = process.env.TELEGRAM_BOT_TOKEN; // Token bot Telegram dari environ
 const MyBot = new TelegramBot(token, { polling: false }); // Gunakan webhook, nonaktifkan polling
 
 const port = process.env.PORT || 3000;
-const WEBHOOK_URL = `${process.env.WEBHOOK_BASE_URL}/bot?${token}`;
+const WEBHOOK_URL = `${process.env.WEBHOOK_BASE_URL}/bot${token}`;
 
 // Middleware untuk membaca body request sebagai JSON
 app.use(express.json());
