@@ -1,35 +1,24 @@
 import express from "express";
 import TelegramBot from "node-telegram-bot-api";
-import fetch from "node-fetch";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import fetch from "node-fetch";
 import dotenv from "dotenv";
+import path from "path";
+
+const app = express();
+const port = process.env.PORT || 3000;
 
 dotenv.config();
+const token = process.env.TELEGRAM_BOT_TOKEN;
+const option = { polling: true };
 
 // Inisialisasi bot Telegram
-const app = express();
-const token = process.env.TELEGRAM_BOT_TOKEN; // Token bot Telegram dari environment variable
-const MyBot = new TelegramBot(token, { polling: false }); // Gunakan webhook, nonaktifkan polling
-
-const port = process.env.PORT || 3000;
-const WEBHOOK_URL = `${process.env.WEBHOOK_BASE_URL}/bot${token}`;
-
-// Middleware untuk membaca body request sebagai JSON
-app.use(express.json());
-
-// Atur webhook ke Telegram
-MyBot.setWebHook(WEBHOOK_URL, {}, (err) => {
-  if (err) {
-    console.error("Gagal mengatur webhook:", err);
-  } else {
-    console.log(`Webhook berhasil diatur di URL: ${WEBHOOK_URL}`);
-  }
-});
+const MyBot = new TelegramBot(token, option);
 
 const prefix = "/";
 
-// Menangani perintah /start
+// Pesan pertama bot
 const startBot = new RegExp(`^${prefix}start$`);
 MyBot.onText(startBot, (callback) => {
   const startMessage = `
@@ -45,10 +34,10 @@ Bot ini menyediakan data kejadian gempa bumi yang terjadi di seluruh wilayah Ind
 Data yang saya gunakan berasal dari Gempabumi Terbaru yang tersedia di file <code>autogempa.json</code> milik BMKG (Badan Meteorologi, Klimatologi, dan Geofisika).
   `;
 
-  MyBot.sendMessage(callback.chat.id, startMessage, { parse_mode: "HTML" });
+  MyBot.sendMessage(callback.from.id, startMessage, { parse_mode: "HTML" });
 });
 
-// Menangani perintah /gempa
+// Menangani permintaan /gempa untuk mendapatkan informasi gempa
 const gempa = new RegExp(`^${prefix}gempa$`);
 MyBot.onText(gempa, async (callback) => {
   const BMKG_ENDPOINT = "https://data.bmkg.go.id/DataMKG/TEWS/";
@@ -83,14 +72,14 @@ Potensi: ${Potensi}.
 <b>BMKG</b> <code>(Badan Meteorologi, Klimatologi, dan Geofisika)</code>
     `;
 
-    MyBot.sendPhoto(callback.chat.id, BMKGImage, {
+    MyBot.sendPhoto(callback.from.id, BMKGImage, {
       caption: resultText,
       parse_mode: "HTML",
     });
   } catch (error) {
     console.error("Error fetching earthquake data:", error);
     MyBot.sendMessage(
-      callback.chat.id,
+      callback.from.id,
       "Terjadi kesalahan saat mendapatkan data gempa."
     );
   }
@@ -103,13 +92,13 @@ const __dirname = dirname(__filename);
 // Serve static files (index.html, favicon.ico, etc.) from the "public" folder
 app.use(express.static(path.join(__dirname, "public")));
 
-// Endpoint utama
+// Halaman utama
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Endpoint tambahan untuk mendapatkan data gempa secara manual
-app.get("/api-gempa-bmkg", async (req, res) => {
+// Fungsi untuk mendapatkan data gempa dari BMKG
+const getGempaBMKG = async () => {
   const BMKG_ENDPOINT = "https://data.bmkg.go.id/DataMKG/TEWS/";
 
   try {
@@ -119,9 +108,19 @@ app.get("/api-gempa-bmkg", async (req, res) => {
     }
 
     const data = await response.json();
-    res.json(data);
+    return data;
   } catch (error) {
     console.error("Error fetching earthquake data:", error);
+    throw error;
+  }
+};
+
+// Route untuk API gempa
+app.get("/api-gempa-bmkg", async (req, res) => {
+  try {
+    const gempaData = await getGempaBMKG();
+    res.json(gempaData);
+  } catch (error) {
     res
       .status(500)
       .json({ error: "Terjadi kesalahan saat mengambil data gempa" });
@@ -130,6 +129,5 @@ app.get("/api-gempa-bmkg", async (req, res) => {
 
 // Menjalankan server Express
 app.listen(port, () => {
-  console.log(`Server berjalan di http://localhost:${port}`);
-  console.log(`Webhook URL: ${WEBHOOK_URL}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });
