@@ -1,6 +1,8 @@
 import express from "express";
 import TelegramBot from "node-telegram-bot-api";
 import fetch from "node-fetch";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -94,9 +96,16 @@ Potensi: ${Potensi}.
   }
 });
 
+// Menggunakan `import.meta.url` untuk mendapatkan __dirname dalam ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Serve static files (index.html, favicon.ico, etc.) from the "public" folder
+app.use(express.static(path.join(__dirname, "public")));
+
 // Endpoint utama
 app.get("/", (req, res) => {
-  res.send("Bot Telegram untuk informasi gempa bumi berjalan dengan baik.");
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Endpoint tambahan untuk mendapatkan data gempa secara manual
