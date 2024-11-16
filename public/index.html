@@ -31,8 +31,6 @@
 
   <body>
 
-    <p id="data">Menunggu data...</p>
-
     <!-- experience section -->
 
     <section class="experience_section layout_padding">
@@ -98,6 +96,8 @@
 
     <!-- end category section -->
 
+    <p id="data">Menunggu data...</p>
+
     <!-- footer section -->
     <footer class="container-fluid footer_section ">
       <div class="container">
@@ -110,31 +110,7 @@
     <!-- end  footer section -->
 
     <script src="js/custom.js"></script>
-
-    <script>
-      const dataElement = document.getElementById("data");
-  
-      // Fungsi untuk mendapatkan data terbaru
-      const fetchData = async () => {
-        try {
-          const response = await fetch("/auto-reload");
-          if (response.ok) {
-            const data = await response.json();
-            dataElement.innerText = `Pesan: ${data.message}\nWaktu: ${data.timestamp}`;
-          } else {
-            dataElement.innerText = "Gagal mendapatkan data dari server.";
-          }
-        } catch (error) {
-          dataElement.innerText = `Terjadi kesalahan: ${error.message}`;
-        }
-      };
-  
-      // Lakukan polling setiap 5 detik
-      setInterval(fetchData, 5000);
-  
-      // Muat data pertama kali saat halaman dibuka
-      fetchData();
-    </script>
+    <script src="js/autoReload.js"></script>
 
   </body>
 
