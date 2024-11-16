@@ -1,17 +1,15 @@
 import express from "express";
 import TelegramBot from "node-telegram-bot-api";
-import { getGempaBMKG } from "./api/api-gempa.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 import path from "path";
 
-dotenv.config();
-
 const app = express();
 const port = process.env.PORT || 3000;
 
+dotenv.config();
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const option = { polling: true };
 
@@ -98,6 +96,24 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
+// Fungsi untuk mendapatkan data gempa dari BMKG
+const getGempaBMKG = async () => {
+  const BMKG_ENDPOINT = "https://data.bmkg.go.id/DataMKG/TEWS/";
+
+  try {
+    const response = await fetch(`${BMKG_ENDPOINT}autogempa.json`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch data from BMKG");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching earthquake data:", error);
+    throw error;
+  }
+};
 
 // Route untuk API gempa
 app.get("/api-gempa-bmkg", async (req, res) => {
