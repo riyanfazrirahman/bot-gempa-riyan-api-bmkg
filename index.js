@@ -131,6 +131,12 @@ let requestCount = 0; // Variabel untuk mencatat jumlah request (contoh)
 
 app.get("/auto-reload", (req, res) => {
   requestCount++; // Simulasi data dinamis
+
+  // Jika requestCount sudah mencapai 100, reset ke 1
+  if (requestCount >= 100) {
+    requestCount = 1;
+  }
+
   res.json({
     message: `Ini adalah request ke-${requestCount}`,
     timestamp: new Date().toISOString(),
