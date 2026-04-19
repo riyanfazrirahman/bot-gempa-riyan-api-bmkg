@@ -1,7 +1,6 @@
 require("dotenv").config();
 
 const { Telegraf } = require("telegraf");
-const { default: fetch } = require("node-fetch");
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const BASE_URL = process.env.BASE_URL;
