@@ -39,7 +39,7 @@ Data yang saya gunakan berasal dari Gempabumi Terbaru yang tersedia di file <cod
 // Pesan Gempa
 bot.command("gempa", async (ctx) => {
     try {
-        const response = await axios.get(`${BASE_URL}/api/gempa`);
+        const response = await axios.get(`${BMKG_ENDPOINT}/autogempa.json`);
         const data = await response.data;
 
         const {
