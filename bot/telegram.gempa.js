@@ -5,6 +5,7 @@ const { default: fetch } = require("node-fetch");
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const BASE_URL = process.env.BASE_URL;
+const BMKG_ENDPOINT = process.env.BMKG_ENDPOINT;
 
 const bot = new Telegraf(token);
 
@@ -55,7 +56,7 @@ bot.command("gempa", async (msg) => {
             },
         } = data;
 
-        const imageUrl = `https://data.bmkg.go.id/DataMKG/TEWS/${Shakemap}`;
+        const imageUrl = BMKG_ENDPOINT + Shakemap;
 
         const text = `
 ${Tanggal} | ${Jam}
