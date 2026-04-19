@@ -6,7 +6,6 @@ const express = require("express");
 const cors = require("cors");
 const favicon = require("serve-favicon");
 const path = require("path");
-const { default: fetch } = require("node-fetch");
 
 // Import
 const app = express();
