@@ -6,13 +6,16 @@ const express = require("express");
 const cors = require("cors");
 const favicon = require("serve-favicon");
 const path = require("path");
+const { Telegraf } = require('telegraf');
 
 // Import
 const app = express();
 const gempaApi = require("./routes/gempa.route");
+const bot = require("./bot/telegram.gempa");
 
 app.use(cors());
 app.use(express.json());
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 
@@ -36,6 +39,9 @@ app.use("/api/gempa", gempaApi);
 /* **************************************
  * TELEGRAM BOT
  * **************************************/
+// webhook
+app.use(bot.webhookCallback('/bot'));
+
 require("./bot/telegram.gempa");
 
 /* **************************************

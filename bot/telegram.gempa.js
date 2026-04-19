@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const { default: axios } = require("axios");
 const { Telegraf } = require("telegraf");
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
@@ -8,6 +9,11 @@ const BMKG_ENDPOINT = process.env.BMKG_ENDPOINT;
 
 const bot = new Telegraf(token);
 
+// handler
+bot.on('text', (ctx) => {
+    ctx.reply('Pesan diterima!');
+});
+
 // set menu command
 bot.telegram.setMyCommands([
     { command: "start", description: "Mulai bot" },
@@ -15,7 +21,7 @@ bot.telegram.setMyCommands([
 ]);
 
 // Pesan Start
-bot.start((msg) => {
+bot.start((ctx) => {
     const startMessage = `
 Halo! Saya adalah bot informasi gempa.
 Gunakan /gempa untuk mendapatkan info gempa terkini.
@@ -29,16 +35,16 @@ Bot ini menyediakan data kejadian gempa bumi yang terjadi di seluruh wilayah Ind
 Data yang saya gunakan berasal dari Gempabumi Terbaru yang tersedia di file <code>autogempa.json</code> milik BMKG (Badan Meteorologi, Klimatologi, dan Geofisika).
 `;
 
-    msg.reply(
+    ctx.reply(
         startMessage,
         { parse_mode: "HTML" }
     );
 });
 
 // Pesan Gempa
-bot.command("gempa", async (msg) => {
+bot.command("gempa", async (ctx) => {
     try {
-        const response = await fetch(`${BASE_URL}/api/gempa`);
+        const response = await axios.get(`${BASE_URL}/api/gempa`);
         const data = await response.json();
 
         const {
@@ -68,15 +74,15 @@ Potensi: ${Potensi}
 <b>BMKG</b> <code>(Badan Meteorologi, Klimatologi, dan Geofisika)</code>
         `;
 
-        await msg.replyWithPhoto(imageUrl, {
+        await ctx.replyWithPhoto(imageUrl, {
             caption: text,
             parse_mode: "HTML"
         });
 
     } catch (err) {
         console.error(err);
-        msg.reply("Error ambil data gempa");
+        ctx.reply("Error ambil data gempa");
     }
 });
 
-bot.launch();
+module.exports = bot;
