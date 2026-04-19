@@ -6,11 +6,11 @@ const express = require("express");
 const cors = require("cors");
 const favicon = require("serve-favicon");
 const path = require("path");
+const { default: fetch } = require("node-fetch");
 
 // Import
-const { default: fetch } = require("node-fetch");
-const gempaApi = require("./routes/gempa.route");
 const app = express();
+const gempaApi = require("./routes/gempa.route");
 
 app.use(cors());
 app.use(express.json());
