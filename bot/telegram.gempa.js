@@ -9,11 +9,6 @@ const BMKG_ENDPOINT = process.env.BMKG_ENDPOINT;
 
 const bot = new Telegraf(token);
 
-// handler
-bot.on('text', (ctx) => {
-    ctx.reply('Pesan diterima!');
-});
-
 // set menu command
 bot.telegram.setMyCommands([
     { command: "start", description: "Mulai bot" },
@@ -83,6 +78,14 @@ Potensi: ${Potensi}
         console.error(err);
         ctx.reply("Error ambil data gempa");
     }
+});
+
+// handler
+bot.on('text', (ctx) => {
+    const text = ctx.message.text;
+
+    if (text.startsWith('/')) return; // skip command
+    ctx.reply('Pesan diterima!');
 });
 
 module.exports = bot;
