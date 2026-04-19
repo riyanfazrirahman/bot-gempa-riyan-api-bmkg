@@ -1,4 +1,4 @@
-const BMKG_ENDPOINT = process.env.BMKG_ENDPOINT;
+const BMKG_ENDPOINT = process.env.BMKG_ENDPOINT
 
 async function autogempa() {
     try {
@@ -6,7 +6,7 @@ async function autogempa() {
         if (!response.ok) {
             throw new Error("Failed to fetch data from BMKG");
         }
-        return await response.json();
+        return response.json();
     } catch (error) {
         console.error("Error fetching earthquake data:", error);
         throw error;

@@ -1,8 +1,6 @@
 const router = require("express").Router();
-const bmkg = require("../controllers/bmkg.gempa.controller")
+const bmkgController = require("../controllers/bmkg.gempa.controller")
 
-router.get("/",
-    bmkg.getGempa
-);
+router.get("/", bmkgController.getGempa);
 
 module.exports = router;
