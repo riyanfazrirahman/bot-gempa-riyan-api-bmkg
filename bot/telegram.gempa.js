@@ -40,7 +40,7 @@ Data yang saya gunakan berasal dari Gempabumi Terbaru yang tersedia di file <cod
 bot.command("gempa", async (ctx) => {
     try {
         const response = await axios.get(`${BASE_URL}/api/gempa`);
-        const data = await response.json();
+        const data = await response.data;
 
         const {
             Infogempa: {
