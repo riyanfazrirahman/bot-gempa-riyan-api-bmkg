@@ -75,7 +75,7 @@ Potensi: ${Potensi}
 
     } catch (err) {
         console.error(err);
-        bot.reply("Error ambil data gempa");
+        msg.reply("Error ambil data gempa");
     }
 });
 
