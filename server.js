@@ -42,8 +42,7 @@ require("./bot/telegram.gempa");
 /* **************************************
  * RUN SERVER
  * **************************************/
-const PORT = process.env.PORT || 3000;
-const BASE_URL = process.env.BASE_URL;
+const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`SERVER running: ${BASE_URL}`);
+    console.log(`SERVER running on: http://localhost:${PORT}`);
 });
