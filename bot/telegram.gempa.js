@@ -1,7 +1,7 @@
 require("dotenv").config();
 
-const { default: axios } = require("axios");
 const { Telegraf } = require("telegraf");
+const axios = require("axios");
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const BASE_URL = process.env.BASE_URL;
