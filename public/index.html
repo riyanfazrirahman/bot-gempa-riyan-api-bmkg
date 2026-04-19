@@ -1,127 +1,110 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <!-- Basic -->
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- Mobile Metas -->
-    <meta name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- Site Metas -->
-    <meta name="keywords" content />
-    <meta name="description" content />
-    <meta name="author" content />
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content />
+  <meta name="description" content />
+  <meta name="author" content />
 
-    <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="icon" href="favicon.png" type="image/png">
 
-    <title>Bot Informasi Gempa</title>
+  <title>Bot Informasi Gempa</title>
 
-    <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap"
-      rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet" />
-    <!-- responsive style -->
-    <link href="css/responsive.css" rel="stylesheet" />
-  </head>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+</head>
 
-  <body>
+<body>
 
-    <!-- experience section -->
+  <!-- experience section -->
 
-    <section class="experience_section layout_padding">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-5">
-            <div class="img-box">
-              <img src="images/images-bot-gempa.png" alt>
+  <section class="experience_section layout_padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="img-box">
+            <img src="images/images-bot-gempa.png" alt>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                Bot Informasi Gempa Bumi
+              </h2>
+            </div>
+            <p>
+              Halo!.. Bot ini menyediakan data kejadian gempa bumi yang
+              terjadi di seluruh wilayah Indonesia, yang terdiri dari tiga
+              jenis yaitu Gempabumi dengan magnitudo 5.0 ke atas, Gempabumi
+              yang dirasakan oleh masyarakat, dan Gempabumi yang berpotensi
+              menimbulkan tsunami.
+            </p>
+            <p>
+              Data yang gunakan berasal dari Gempabumi Terbaru yang tersedia
+              di file <code>autogempa.json</code> milik <a href="https://data.bmkg.go.id/">BMKG</a> (Badan Meteorologi,
+              Klimatologi, dan Geofisika).
+            </p>
+            <div class="btn-box">
+              <a class="btn-1" id="showGempaBtn">
+                Informasi Gempa
+              </a>
+              <a href="https://t.me/tesryn_bot" target="_blank" class="btn-2">
+                Telegram Bot
+              </a>
             </div>
           </div>
-          <div class="col-md-7">
-            <div class="detail-box">
-              <div class="heading_container">
-                <h2>
-                  Bot Informasi Gempa Bumi
-                </h2>
-              </div>
-              <p>
-                Halo!.. Bot ini menyediakan data kejadian gempa bumi yang
-                terjadi di seluruh wilayah Indonesia, yang terdiri dari tiga
-                jenis yaitu Gempabumi dengan magnitudo 5.0 ke atas, Gempabumi
-                yang dirasakan oleh masyarakat, dan Gempabumi yang berpotensi
-                menimbulkan tsunami.
-              </p>
-              <p>
-                Data yang gunakan berasal dari Gempabumi Terbaru yang tersedia
-                di file <code>autogempa.json</code> milik <a
-                  href="https://data.bmkg.go.id/">BMKG</a> (Badan Meteorologi,
-                Klimatologi, dan Geofisika).
-              </p>
-              <div class="btn-box">
-                <a class="btn-1" id="showGempaBtn">
-                  Informasi Gempa
-                </a>
-                <a href="https://t.me/tesryn_bot" target="_blank" class="btn-2">
-                  Telegram Bot
-                </a>
-              </div>
-            </div>
-          </div>
-
         </div>
+
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- end experience section -->
+  <!-- end experience section -->
 
-    <!-- category section -->
+  <!-- category section -->
 
-    <section class="category_section layout_padding" id="gempaInfo"
-      style="display: none;">
-      <div class="container">
-        <div class="heading_container">
-          <h2>
-            Informasi Gempa Terbaru
-          </h2>
-        </div>
+  <section class="category_section layout_padding" id="gempaInfo" style="display: none;">
+    <div class="container">
+      <div class="heading_container">
+        <h2>
+          Informasi Gempa Terbaru
+        </h2>
       </div>
+    </div>
 
-      <div id="gempaDetails"></div>
+    <div id="gempaDetails"></div>
 
-    </section>
+  </section>
 
-    <!-- end category section -->
+  <!-- end category section -->
 
-    <!-- date time section -->
 
-    <section class="category_section bg-white layout_padding">
-      <div class="container">
-        <div class="heading_container">
-          <h4 id="data" class="text-dark">Menunggu data...</h4>
-        </div>
-      </div>
-    </section>
+  <!-- footer section -->
+  <footer class="container-fluid footer_section ">
+    <div class="container">
+      <p>
+        &copy; <span id="displayDate"></span> All Rights Reserved By
+        <a href="https://github.com/riyanfazrirahman">riyanfazrirahman</a>
+      </p>
+    </div>
+  </footer>
+  <!-- end  footer section -->
 
-    <!-- end date time section -->
+  <script src="js/custom.js"></script>
 
-    <!-- footer section -->
-    <footer class="container-fluid footer_section ">
-      <div class="container">
-        <p>
-          &copy; <span id="displayDate"></span> All Rights Reserved By
-          <a href="https://github.com/riyanfazrirahman">riyanfazrirahman</a>
-        </p>
-      </div>
-    </footer>
-    <!-- end  footer section -->
-
-    <script src="js/custom.js"></script>
-    <script src="js/autoReload.js"></script>
-
-  </body>
+</body>
 
 </html>

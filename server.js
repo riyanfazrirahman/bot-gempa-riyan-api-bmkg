@@ -1,0 +1,49 @@
+require("dotenv").config({
+    path: `.env.${process.env.NODE_ENV || "development"}`
+});
+
+const express = require("express");
+const cors = require("cors");
+const favicon = require("serve-favicon");
+const path = require("path");
+
+// Import
+const { default: fetch } = require("node-fetch");
+const gempaApi = require("./routes/gempa.route");
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "public"));
+
+/* **************************************
+ * BASE API
+ * **************************************/
+
+// Root endpoint
+app.get('/', (req, res) => {
+    res.render("index", {
+        BASE_URL: process.env.BASE_URL
+    });
+});
+
+// Routes
+app.use("/api/gempa", gempaApi);
+
+/* **************************************
+ * TELEGRAM BOT
+ * **************************************/
+require("./bot/telegram.gempa");
+
+/* **************************************
+ * RUN SERVER
+ * **************************************/
+const PORT = process.env.PORT || 3000;
+const BASE_URL = process.env.BASE_URL;
+app.listen(PORT, () => {
+    console.log(`SERVER running: ${BASE_URL}`);
+});
