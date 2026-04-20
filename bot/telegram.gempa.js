@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const { Telegraf } = require("telegraf");
+const FormData = require("form-data");
 const axios = require("axios");
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
@@ -13,6 +14,7 @@ const bot = new Telegraf(token);
 bot.telegram.setMyCommands([
     { command: "start", description: "Mulai bot" },
     { command: "gempa", description: "Info gempa terbaru" },
+    { command: "photo", description: "photo classification" },
 ]);
 
 // Pesan Start
@@ -77,6 +79,57 @@ Potensi: ${Potensi}
     } catch (err) {
         console.error(err);
         ctx.reply("Error ambil data gempa");
+    }
+});
+
+
+bot.on("photo", async (ctx) => {
+    try {
+        // ambil foto resolusi terbesar
+        const photo = ctx.message.photo.pop();
+        const fileId = photo.file_id;
+
+        // ambil info file dari Telegram
+        const file = await ctx.telegram.getFile(fileId);
+
+        const fileUrl = `https://api.telegram.org/file/bot${process.env.TELEGRAM_BOT_TOKEN}/${file.file_path}`;
+
+        // download file sebagai stream
+        const response = await axios.get(fileUrl, {
+            responseType: "stream"
+        });
+
+        // kirim ke API kamu
+        const formData = new FormData();
+        formData.append("file", response.data, "image.jpg");
+        formData.append("model_name", "Model-RDC-4.1");
+
+        const apiResponse = await axios.post(
+            `https://jalanai-api.vercel.app/api/classification/predict`,
+            formData,
+            {
+                headers: formData.getHeaders(),
+            }
+        );
+
+        const result = apiResponse.data;
+
+        // ambil prediksi tertinggi
+        const top = result.data.predictions[0];
+
+        const text = `
+Hasil Klasifikasi:
+Model: ${result.data.model}
+
+Kelas: <b>${top.class}</b>
+Confidence: <b>${top.confidence}%</b>
+        `;
+
+        await ctx.reply(text, { parse_mode: "HTML" });
+
+    } catch (err) {
+        console.error("ERROR:", err.response?.data || err.message);
+        ctx.reply("Gagal memproses gambar");
     }
 });
 
