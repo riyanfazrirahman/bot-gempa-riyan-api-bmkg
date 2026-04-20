@@ -40,13 +40,14 @@ app.use("/api/gempa", gempaApi);
  * TELEGRAM BOT
  * **************************************/
 if (process.env.NODE_ENV === "production") {
-    // webhook
+    // set webhook sekali
+    bot.telegram.setWebhook(`${process.env.BASE_URL}/bot`);
+    // attach webhook ke express
     app.use(bot.webhookCallback('/bot'));
 } else {
+    // lokal polling
     bot.launch(); // lokal
 }
-
-require("./bot/telegram.gempa");
 
 /* **************************************
  * RUN SERVER
