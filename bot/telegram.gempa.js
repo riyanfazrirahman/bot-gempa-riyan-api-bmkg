@@ -14,7 +14,7 @@ const bot = new Telegraf(token);
 bot.telegram.setMyCommands([
     { command: "start", description: "Mulai bot" },
     { command: "gempa", description: "Info gempa terbaru" },
-    { command: "photo", description: "photo classification" },
+    { command: "history", description: "Riwayat Klasifikasi" },
 ]);
 
 // Pesan Start
@@ -83,8 +83,23 @@ Potensi: ${Potensi}
 });
 
 
+bot.command("history", async (ctx) => {
+    try {
+        const response = await axios.get(`https://jalanai-api.vercel.app/api/classification/history`);
+        const ids = response.data.data.map(item => item.id);
+
+        await ctx.reply(ids.join("\n"));
+    } catch (err) {
+        console.error("ERROR:", err.response?.data || err.message);
+        ctx.reply("Gagal memproses gambar");
+    }
+});
+
+
 bot.on("photo", async (ctx) => {
     try {
+        await ctx.reply("⏳ Sedang memproses gambar...");
+
         // ambil foto resolusi terbesar
         const photo = ctx.message.photo.pop();
         const fileId = photo.file_id;
@@ -94,14 +109,15 @@ bot.on("photo", async (ctx) => {
 
         const fileUrl = `https://api.telegram.org/file/bot${process.env.TELEGRAM_BOT_TOKEN}/${file.file_path}`;
 
-        // download file sebagai stream
-        const response = await axios.get(fileUrl, {
-            responseType: "stream"
+        const imageResponse = await axios.get(fileUrl, {
+            responseType: "arraybuffer"
         });
 
         // kirim ke API kamu
         const formData = new FormData();
-        formData.append("file", response.data, "image.jpg");
+        const filePath = file.file_path;
+        const fileName = filePath.split("/").pop(); // contoh: photo_123.png
+        formData.append("file", Buffer.from(imageResponse.data), fileName);
         formData.append("model_name", "Model-RDC-4.1");
 
         const apiResponse = await axios.post(
@@ -109,6 +125,7 @@ bot.on("photo", async (ctx) => {
             formData,
             {
                 headers: formData.getHeaders(),
+                maxBodyLength: Infinity,
             }
         );
 
@@ -132,6 +149,8 @@ Confidence: <b>${top.confidence}%</b>
         ctx.reply("Gagal memproses gambar");
     }
 });
+
+
 
 // handler
 bot.on('text', (ctx) => {
