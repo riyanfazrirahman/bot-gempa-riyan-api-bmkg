@@ -39,8 +39,12 @@ app.use("/api/gempa", gempaApi);
 /* **************************************
  * TELEGRAM BOT
  * **************************************/
-// webhook
-app.use(bot.webhookCallback('/bot'));
+if (process.env.NODE_ENV === "production") {
+    // webhook
+    app.use(bot.webhookCallback('/bot'));
+} else {
+    bot.launch(); // lokal
+}
 
 require("./bot/telegram.gempa");
 

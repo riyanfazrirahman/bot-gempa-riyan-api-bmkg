@@ -14,7 +14,6 @@ const bot = new Telegraf(token);
 bot.telegram.setMyCommands([
     { command: "start", description: "Mulai bot" },
     { command: "gempa", description: "Info gempa terbaru" },
-    { command: "history", description: "Riwayat Klasifikasi" },
 ]);
 
 // Pesan Start
@@ -81,76 +80,6 @@ Potensi: ${Potensi}
         ctx.reply("Error ambil data gempa");
     }
 });
-
-
-bot.command("history", async (ctx) => {
-    try {
-        const response = await axios.get(`https://jalanai-api.vercel.app/api/classification/history`);
-        const ids = response.data.data.map(item => item.id);
-
-        await ctx.reply(ids.join("\n"));
-    } catch (err) {
-        console.error("ERROR:", err.response?.data || err.message);
-        ctx.reply("Gagal memproses gambar");
-    }
-});
-
-
-bot.on("photo", async (ctx) => {
-    try {
-        await ctx.reply("⏳ Sedang memproses gambar...");
-
-        // ambil foto resolusi terbesar
-        const photo = ctx.message.photo.pop();
-        const fileId = photo.file_id;
-
-        // ambil info file dari Telegram
-        const file = await ctx.telegram.getFile(fileId);
-
-        const fileUrl = `https://api.telegram.org/file/bot${process.env.TELEGRAM_BOT_TOKEN}/${file.file_path}`;
-
-        const imageResponse = await axios.get(fileUrl, {
-            responseType: "arraybuffer"
-        });
-
-        // kirim ke API kamu
-        const formData = new FormData();
-        const filePath = file.file_path;
-        const fileName = filePath.split("/").pop(); // contoh: photo_123.png
-        formData.append("file", Buffer.from(imageResponse.data), fileName);
-        formData.append("model_name", "Model-RDC-4.1");
-
-        const apiResponse = await axios.post(
-            `https://jalanai-api.vercel.app/api/classification/predict`,
-            formData,
-            {
-                headers: formData.getHeaders(),
-                maxBodyLength: Infinity,
-            }
-        );
-
-        const result = apiResponse.data;
-
-        // ambil prediksi tertinggi
-        const top = result.data.predictions[0];
-
-        const text = `
-Hasil Klasifikasi:
-Model: ${result.data.model}
-
-Kelas: <b>${top.class}</b>
-Confidence: <b>${top.confidence}%</b>
-        `;
-
-        await ctx.reply(text, { parse_mode: "HTML" });
-
-    } catch (err) {
-        console.error("ERROR:", err.response?.data || err.message);
-        ctx.reply("Gagal memproses gambar");
-    }
-});
-
-
 
 // handler
 bot.on('text', (ctx) => {
