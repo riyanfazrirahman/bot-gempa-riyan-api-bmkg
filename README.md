@@ -16,3 +16,4 @@ Atau kunjungi Website berikut: **[WEB bot-gempa-riyan](https://bot-gempa-riyan-a
 ## Penggunaan API BMKG
 
 Bot ini menggunakan data dari **endpoint [API BMKG](https://data.bmkg.go.id/gempabumi/)**, yaitu `autogempa.json`, yang menyediakan informasi tentang gempa bumi terkini.
+....

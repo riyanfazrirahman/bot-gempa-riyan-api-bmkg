@@ -22,11 +22,7 @@ bot.start((ctx) => {
 Halo! Saya adalah bot informasi gempa.
 Gunakan /gempa untuk mendapatkan info gempa terkini.
 
-Bot ini menyediakan data kejadian gempa bumi yang terjadi di seluruh wilayah Indonesia, yang terdiri dari tiga jenis data kejadian gempa:
-
-<b>1. Gempabumi M 5.0+</b> – Gempabumi dengan magnitudo 5.0 ke atas.
-<b>2. Gempabumi Dirasakan</b> – Gempabumi yang dirasakan oleh masyarakat.
-<b>3. Gempabumi Berpotensi Tsunami</b> – Gempabumi yang berpotensi menimbulkan tsunami.
+Bot ini menyediakan data kejadian gempa bumi yang terjadi di seluruh wilayah Indonesia.
 
 Data yang saya gunakan berasal dari Gempabumi Terbaru yang tersedia di file <code>autogempa.json</code> milik BMKG (Badan Meteorologi, Klimatologi, dan Geofisika).
 `;
